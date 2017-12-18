@@ -1,0 +1,12 @@
+ {% extends "base.html" %}
+ {% block head_title %} Gallery | {{block.super}}{% endblock head_title %}
+ {% block content %}
+ <h1> Gallery List</h1> 
+
+ <ul>
+ 	{% for obj in object_list %}
+ 		<li>{{ obj.image_name }}</li>
+ 	{% endfor %}
+ </ul>
+ {% endblock %}		
+

@@ -2,15 +2,17 @@
 <html lang=en>
 
 <head>
-	<title>My Gallery</title>
+<title>{% block head_title %}MuyPicky.com{% endblock head_title %}</title>
+{% include 'snippets/css.html' %}
 </head>
 <body>
-	<h1>Picture Gallery </h1>
-	<a href='/'>Home</a>
-	<a href="/about">About</a>
-	<a href="/contact">Contact</a>
-	<div class='container'>
-	{%block content %}{% endblock content %}
-	</div>  
-</body>	 
+{% include 'snippets/nav.html' %}
+
+<div class='container'>
+{% block content %}{% endblock content %}
+</div>
+
+
+{% include 'snippets/js.html' %}
+</body>
 </html>
