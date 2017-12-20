@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 
@@ -9,7 +9,7 @@ from .forms import GalleryCreateForm
 
 
 def gallery_createview(request):
-    form = GalleryCreateForm(request.POST or None)
+    form = GalleryCreateForm(request.POST or None, request.FILES or None)
     errors = None
     if form.is_valid():
         obj =upload_photo.objects.create(
