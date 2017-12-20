@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block head_title %}Add Pictures | {{ block.super}}{% endblock head_title %}
+
+{% block content %}
+<h1>Add Pictures</h1>
+
+{% if errors %}
+{{ errors }}
+{% endif %}
+
+<form method="post"
+          enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Upload">
+</form>
+
+{% endblock %}
