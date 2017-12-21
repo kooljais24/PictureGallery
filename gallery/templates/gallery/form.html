@@ -5,8 +5,8 @@
 {% block content %}
 <h1>Add Pictures</h1>
 
-{% if errors %}
-{{ errors }}
+{% if form.errors %}
+{{ form.errors }}
 {% endif %}
 
 <form method="post"

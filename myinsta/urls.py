@@ -18,7 +18,7 @@ from django.contrib import admin
 
 from django.conf.urls.static import static
 from django.conf import settings
-
+from django.contrib.auth.views import LoginView
 from django.views.generic import TemplateView
 from gallery.views import gallery_listview
 
@@ -26,15 +26,18 @@ from gallery.views import (
     gallery_listview,
     GalleryListView,
     GalleryDetailView,
-    gallery_createview
+    gallery_createview,
+    GalleryCreateView
 )
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^login/$',LoginView.as_view(),name='login'),
     url(r'^$', TemplateView.as_view(template_name='home.html')),
     url(r'^gallery/$', gallery_listview),
     url(r'^gallery/$', GalleryListView.as_view()),
-    url(r'^gallery/create/$', gallery_createview),
+    url(r'^gallery/create/$',GalleryCreateView.as_view()), 
+    #url(r'^gallery/create/$',gallery_createview),   
     url(r'^gallery/(?P<slug>[\w-]+)/$', GalleryDetailView.as_view()),
     url(r'^about/$', TemplateView.as_view(template_name='about.html')),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html')),

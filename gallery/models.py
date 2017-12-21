@@ -1,8 +1,13 @@
+from django.conf import settings
 from django.db import models
 from .utils import unique_slug_generator
 from django.db.models.signals import pre_save, post_save
 # Create your models here.
+
+User = settings.AUTH_USER_MODEL
+
 class upload_photo(models.Model):
+	owner		=models.ForeignKey(User)
 	image_name	=models.CharField(max_length=120)
 	image		=models.ImageField(upload_to = 'media/',null=False)
 	timestamp	=models.DateTimeField(auto_now=False,auto_now_add=True)

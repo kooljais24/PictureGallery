@@ -1,29 +1,32 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 
-from django.views.generic import TemplateView, ListView ,DetailView
+from django.views.generic import TemplateView, ListView ,DetailView,CreateView
 from .models import upload_photo
-from .forms import GalleryCreateForm
+from .forms import GalleryCreateForm,GalleryListCreateForm
 # Create your views here.
 
-
+@login_required()
 def gallery_createview(request):
-    form = GalleryCreateForm(request.POST or None, request.FILES or None)
-    errors = None
-    if form.is_valid():
-        obj =upload_photo.objects.create(
-                image_name = form.cleaned_data.get('image_name'),
-                image	= form.cleaned_data.get('image'),
-
-            )
-        return HttpResponseRedirect("/gallery/")
-    if form.errors:
-        errors = form.errors
+	form = GalleryListCreateForm(request.POST or None, request.FILES or None)
+	errors = None
+	if form.is_valid():
+		if request.user.is_authenticated():
+			instance=form.save(commit=False)
+			instance.owner=request.user
+			instance.save()
+			return HttpResponseRedirect("/gallery/")
+		else:
+			return HttpResponseRedirect("/login/")    		
+	if form.errors:
+		errors = form.errors
            
-    template_name = 'gallery/form.html'
-    context = {"form": form, "errors": errors}
-    return render(request, template_name, context)
+	template_name = 'gallery/form.html'
+	context = {"form": form, "errors": errors}
+	return render(request, template_name, context)
 
 
 def gallery_listview(request):
@@ -56,3 +59,14 @@ class GalleryDetailView(DetailView):
     #     rest_id = self.kwargs.get('rest_id')
     #     obj = get_object_or_404(RestaurantLocation, id=rest_id) # pk = rest_id
     #     return obj
+
+class GalleryCreateView(LoginRequiredMixin,CreateView):
+	form_class=GalleryListCreateForm
+	login_url='/login/'
+	template_name='gallery/form.html'
+	success_url='/gallery/'
+
+	def form_valid(self,form):
+		instance=form.save(commit=False)
+		instance.owner=self.request.user
+		return super(GalleryCreateView,self).form_valid(form)
