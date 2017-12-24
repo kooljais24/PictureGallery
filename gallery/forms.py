@@ -4,7 +4,7 @@ from .models import upload_photo
 
 class GalleryCreateForm(forms.Form):
 	image_name	=forms.CharField(required=True)
-	image		=forms.ImageField(required=True)
+	image		=forms.ImageField(required=True,widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
 	def clean_name(self):
 		image_name = self.cleaned_data.get("image_name")

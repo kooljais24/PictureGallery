@@ -11,22 +11,23 @@ from .forms import GalleryCreateForm,GalleryListCreateForm
 
 @login_required()
 def gallery_createview(request):
-	form = GalleryListCreateForm(request.POST or None, request.FILES or None)
+	form = GalleryCreateForm(request.POST or None, request.FILES or None)
 	errors = None
 	if form.is_valid():
 		if request.user.is_authenticated():
-			instance=form.save(commit=False)
-			instance.owner=request.user
-			instance.save()
+			files = request.FILES.getlist('image')
+			for number, f in enumerate(files):
+				upload_photo.objects.create(owner=request.user,image_name=f.name, image=f)
 			return HttpResponseRedirect("/gallery/")
 		else:
-			return HttpResponseRedirect("/login/")    		
+			return HttpResponseRedirect("/login/")
 	if form.errors:
 		errors = form.errors
            
 	template_name = 'gallery/form.html'
 	context = {"form": form, "errors": errors}
 	return render(request, template_name, context)
+
 
 
 def gallery_listview(request):
