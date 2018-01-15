@@ -1,14 +1,21 @@
  {% extends "base.html" %}
  {% block head_title %} Gallery | {{block.super}}{% endblock head_title %}
  {% block content %}
- <div class="container text-center text-info">
+ <div class="container text-center text-info  ">
  <h1> Gallery List</h1> 
 </div>
 
- <ul class="d-inline">
+ <div class="container">
+ 	<div class="row">
  	{% for obj in object_list %}
- 		<li><a href='/gallery/{{ obj.slug }}/'><img src="{{ obj.image.url }}" class="img-rounded  img-responsive " alt="Cinque Terre" width="304" height="236"> </a></li>
+ 	<div class="col-md-3 ">
+ 		
+ 		<a href='/gallery/{{ obj.slug }}/'><img src="{{ obj.image.url }}" class="thumbnail img-responsive img-thumbnail" alt="Cinque Terre" width="304" height="236"> </a> 				
+ 		
+ 	</div>
  	{% endfor %}
- </ul>
+ </div>
+</div>
+
  {% endblock %}		
 
