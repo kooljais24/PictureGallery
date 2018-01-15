@@ -1,11 +1,13 @@
  {% extends "base.html" %}
  {% block head_title %} Gallery | {{block.super}}{% endblock head_title %}
  {% block content %}
+ <div class="container text-center text-info">
  <h1> Gallery List</h1> 
+</div>
 
- <ul>
+ <ul class="d-inline">
  	{% for obj in object_list %}
- 		<li><a href='/gallery/{{ obj.slug }}/'><img src="{{ obj.image.url }}" width="450" height="400"> </a></li>
+ 		<li><a href='/gallery/{{ obj.slug }}/'><img src="{{ obj.image.url }}" class="img-rounded  img-responsive " alt="Cinque Terre" width="304" height="236"> </a></li>
  	{% endfor %}
  </ul>
  {% endblock %}		
