@@ -1,14 +1,15 @@
  {% extends "base.html" %}
  {% block head_title %} Gallery | {{block.super}}{% endblock head_title %}
  {% block content %}
+
  <div class="container text-center text-info  ">
  <h1> Gallery List</h1> 
 </div>
 
- <div class="container">
- 	<div class="row">
+ <div class="polaroid col-md-offset-2">
+ 	
  	{% for obj in object_list %}
- 	<div class="col-md-3 ">
+ 	<div class="col-md-6 "  >
  		
  		<a href='/gallery/{{ obj.slug }}/'><img src="{{ obj.image.url }}" class="thumbnail img-responsive img-thumbnail" alt="Cinque Terre" width="304" height="236"> </a> 				
  		

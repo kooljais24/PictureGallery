@@ -5,20 +5,91 @@
 <title>Club Name</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
 
 
+div.polaroid {
+  width: 80%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom: 25px;
+}
+
+</style>
+
+    
+  
+
+{% include 'snippets/css.html' %}
 </head>
 <body>
+
 {% include 'snippets/nav.html' %}
 
-<div class='container'>
-{% block content %}{% endblock content %}
+<div class='container-fluid'>
+{% block content %}
+{% load static %}
+
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+<style>
+.front-image {
+  height:auto;
+  width:auto;
+  display:block;
+  overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+  .rndm,.rndm2,.rndm3 {
+    background-image: url({% static "static/kiss.jpg" %});
+    height: 100vh;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .rndm1 {
+    background-image: url({% static "static/kiss.jpg" %});
+  }
+  .rndm2 {
+    background-image: url({% static "static/autumn.jpg" %}); 
+  }
+  .rndm3 {
+    background-image: url({% static "static/krishna.jpg" %});
+  }
+</style>
+
+  <div class="row">
+    <div class="col-md-12 rndm">
+                    ... your content here ...
+    </div>
+  </div>
+<!-- <a href="#" ><img class="img-responsive front-image " src="{% static "static/kiss.jpg" %}" style=" top:0;  left:0; display:block;" alt="a"></a>
+ -->
+
+ <div class="row">
+    <div class="col-md-12 rndm2">
+            .....content here.....
+          </div>
+  </div>
+
+   <div class="row">
+    <div class="col-md-12 rndm3">
+                    ... your content here ...
+    </div>
+  </div> 
+{% endblock content %}
 </div>
 
 
 {% include 'snippets/js.html' %}
 </body>
+
 </html>

@@ -21,6 +21,7 @@ from django.conf import settings
 from django.contrib.auth.views import LoginView
 from django.views.generic import TemplateView
 from gallery.views import gallery_listview
+from django.conf.urls.static import static
 
 from gallery.views import (
     gallery_listview,
@@ -41,5 +42,5 @@ urlpatterns = [
     url(r'^gallery/(?P<slug>[\w-]+)/$', GalleryDetailView.as_view()),
     url(r'^about/$', TemplateView.as_view(template_name='about.html')),
     url(r'^contact/$', TemplateView.as_view(template_name='contact.html')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
